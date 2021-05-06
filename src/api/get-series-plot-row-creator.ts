@@ -8,8 +8,7 @@ import { BarData, HistogramData, isWhitespaceData, LineData, SeriesDataItemTypeM
 function getLineBasedSeriesPlotRow(time: TimePoint, index: TimePointIndex, item: LineData | HistogramData): Mutable<SeriesPlotRow<'Line' | 'Histogram'>> {
 	const val = item.value;
 
-	const res: Mutable<SeriesPlotRow<'Histogram'>> = { index, time, value: [val, val, val, val] };
-
+	const res: Mutable<SeriesPlotRow<'Histogram'>> = { index, time, value: [val, val, val, val, val, val, val], barData: item.barData };
 	// 'color' here is public property (from API) so we can use `in` here safely
 	// eslint-disable-next-line no-restricted-syntax
 	if ('color' in item && item.color !== undefined) {
@@ -20,7 +19,7 @@ function getLineBasedSeriesPlotRow(time: TimePoint, index: TimePointIndex, item:
 }
 
 function getOHLCBasedSeriesPlotRow(time: TimePoint, index: TimePointIndex, item: BarData): Mutable<SeriesPlotRow> {
-	return { index, time, value: [item.open, item.high, item.low, item.close] };
+	return { index, time, value: [item.open, item.high, item.low, item.close, item.volume, item.volumeBuy, item.volumeSell] };
 }
 
 export type WhitespacePlotRow = Omit<PlotRow, 'value'>;

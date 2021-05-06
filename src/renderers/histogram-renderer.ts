@@ -1,13 +1,16 @@
 import { PricedValue } from '../model/price-scale';
 import { SeriesItemsIndexesRange, TimedValue, TimePointIndex } from '../model/time-data';
 
+import { CandlestickItem } from './candlesticks-renderer';
 import { IPaneRenderer } from './ipane-renderer';
+// import { Coordinate } from '../model/coordinate';
 
 const showSpacingMinimalBarWidth = 1;
 const alignToMinimalWidthLimit = 4;
 
 export interface HistogramItem extends PricedValue, TimedValue {
 	color: string;
+	barData: CandlestickItem;
 }
 
 export interface PaneRendererHistogramData {
@@ -70,6 +73,12 @@ export class PaneRendererHistogram implements IPaneRenderer {
 		}
 	}
 
+	// private _getStandardDeviation(volumes: number[]): number {
+	// 	const n = volumes.length;
+	// 	const mean = volumes.reduce((a: number, b: number) => a + b) / n;
+	// 	return Math.sqrt(volumes.map((x: number) => Math.pow(x - mean, 2)).reduce((a: number, b: number) => a + b) / n);
+	// }
+
 	// eslint-disable-next-line complexity
 	private _fillPrecalculatedCache(pixelRatio: number): void {
 		if (this._data === null || this._data.items.length === 0 || this._data.visibleRange === null) {
@@ -81,6 +90,18 @@ export class PaneRendererHistogram implements IPaneRenderer {
 
 		this._precalculatedCache = new Array(this._data.visibleRange.to - this._data.visibleRange.from);
 
+		// const stdDev = this._getStandardDeviation(this._data.items.map(item => item.y));
+		// const newBars = this._data.items.reduce((stored: CandlestickItem[], bar: CandlestickItem, index: number) => {
+		// 	let barWidth = this._barWidth;
+		// 	if (bar.volume >= stdDev && bar.volume <= (2 * stdDev)) {
+		// 		barWidth = this._barWidth + 10.0;
+		// 	} else if (bar.volume >= (2 * stdDev)) {
+		// 		barWidth = this._barWidth + 20.0;
+		// 	}
+		// 	const left = index > 0 ? stored[index - 1].x + stored[index - 1].barWidth! : Math.round(bar.x * pixelRatio) - Math.floor(barWidth * 0.5);
+		// 	stored.push({ ...bar, x: left as Coordinate, barWidth });
+		// 	return stored;
+		// }, []);
 		for (let i = this._data.visibleRange.from; i < this._data.visibleRange.to; i++) {
 			const item = this._data.items[i];
 			// force cast to avoid ensureDefined call

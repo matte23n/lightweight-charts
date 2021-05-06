@@ -13,6 +13,7 @@ import { HistogramItem, PaneRendererHistogram, PaneRendererHistogramData } from 
 import { IPaneRenderer } from '../../renderers/ipane-renderer';
 
 import { SeriesPaneViewBase } from './series-pane-view-base';
+import { CandlestickItem } from '../../renderers/candlesticks-renderer';
 
 function createEmptyHistogramData(barSpacing: number): PaneRendererHistogramData {
 	return {
@@ -23,13 +24,14 @@ function createEmptyHistogramData(barSpacing: number): PaneRendererHistogramData
 	};
 }
 
-function createRawItem(time: TimePointIndex, price: BarPrice, color: string): HistogramItem {
+function createRawItem(time: TimePointIndex, price: BarPrice, color: string, barData: CandlestickItem): HistogramItem {
 	return {
 		time: time,
 		price: price,
 		x: NaN as Coordinate,
 		y: NaN as Coordinate,
 		color,
+		barData
 	};
 }
 
@@ -66,7 +68,7 @@ export class SeriesHistogramPaneView extends SeriesPaneViewBase<'Histogram', Tim
 			const value = row.value[PlotRowValueIndex.Close] as BarPrice;
 
 			const color = row.color !== undefined ? row.color : defaultColor;
-			const item = createRawItem(row.index, value, color);
+			const item = createRawItem(row.index, value, color, row.barData);
 			targetIndex++;
 			if (targetIndex < this._histogramData.items.length) {
 				this._histogramData.items[targetIndex] = item;

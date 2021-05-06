@@ -1,9 +1,11 @@
+import { CandlestickItem } from '../renderers/candlesticks-renderer';
 import { PlotRow } from './plot-data';
 import { PlotList } from './plot-list';
 import { SeriesType } from './series-options';
 
 export interface HistogramPlotRow extends PlotRow {
 	readonly color?: string;
+	readonly barData: CandlestickItem;
 }
 
 export interface SeriesPlotRowTypeAtTypeMap {

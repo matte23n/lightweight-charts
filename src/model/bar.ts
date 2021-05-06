@@ -9,6 +9,9 @@ export interface BarPrices {
 	high: BarPrice;
 	low: BarPrice;
 	close: BarPrice;
+	volume: BarPrice;
+	volumeBuy: BarPrice;
+	volumeSell: BarPrice;
 }
 
 export interface BarCoordinates {

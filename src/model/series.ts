@@ -342,6 +342,9 @@ export class Series<T extends SeriesType = SeriesType> extends PriceDataSource i
 				high: prices.value[PlotRowValueIndex.High] as BarPrice,
 				low: prices.value[PlotRowValueIndex.Low] as BarPrice,
 				close: prices.value[PlotRowValueIndex.Close] as BarPrice,
+				volume: prices.value[PlotRowValueIndex.Volume] as BarPrice,
+				volumeBuy: prices.value[PlotRowValueIndex.VolumeBuy] as BarPrice,
+				volumeSell: prices.value[PlotRowValueIndex.VolumeSell] as BarPrice,
 			};
 		} else {
 			return prices.value[PlotRowValueIndex.Close] as BarPrice;

@@ -38,6 +38,7 @@ export type LogicalRange = Range<Logical>;
 export interface TimedValue {
 	time: TimePointIndex;
 	x: Coordinate;
+	barWidth?: number;
 }
 
 export type SeriesItemsIndexesRange = Range<number>;

@@ -3,6 +3,7 @@ import { isNumber, isString } from '../helpers/strict-type-checks';
 import { Series } from '../model/series';
 import { SeriesType } from '../model/series-options';
 import { BusinessDay, UTCTimestamp } from '../model/time-data';
+import { CandlestickItem } from '../renderers/candlesticks-renderer';
 
 export type Time = UTCTimestamp | BusinessDay | string;
 
@@ -31,6 +32,7 @@ export interface LineData {
 	 * Price value of data item
 	 */
 	value: number;
+	barData: CandlestickItem;
 }
 
 /**
@@ -50,6 +52,9 @@ export interface BarData {
 	high: number;
 	low: number;
 	close: number;
+	volume: number;
+	volumeBuy: number;
+	volumeSell: number;
 }
 
 export function isWhitespaceData(data: SeriesDataItemTypeMap[SeriesType]): data is WhitespaceData {

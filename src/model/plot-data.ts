@@ -8,6 +8,9 @@ export const enum PlotRowValueIndex {
 	High = 1,
 	Low = 2,
 	Close = 3,
+	Volume = 4,
+	VolumeBuy = 5,
+	VolumeSell = 6,
 }
 
 export type PlotRowValue = [
@@ -15,6 +18,9 @@ export type PlotRowValue = [
 	number, // high
 	number, // low
 	number, // close
+	number, // volume
+	number, // volumeBuy
+	number, // volumeSell
 ];
 
 export interface PlotRow {
